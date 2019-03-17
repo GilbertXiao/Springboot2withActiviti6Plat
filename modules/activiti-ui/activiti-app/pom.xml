@@ -6,12 +6,17 @@
     <parent>
         <groupId>org.activiti</groupId>
         <artifactId>activiti-ui-root</artifactId>
-        <version>6.0.0</version>
+        <version>6.0.0-boot2</version>
     </parent>
     <artifactId>activiti-app</artifactId>
     <packaging>war</packaging>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>1.2.6.RELEASE</version>
+        </dependency>
     
     	<dependency>
             <groupId>org.activiti</groupId>
