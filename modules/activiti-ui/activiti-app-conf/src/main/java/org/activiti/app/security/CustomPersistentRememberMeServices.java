@@ -84,7 +84,7 @@ public class CustomPersistentRememberMeServices extends AbstractRememberMeServic
 
   @Autowired
   public CustomPersistentRememberMeServices(Environment env, org.springframework.security.core.userdetails.UserDetailsService userDetailsService) {
-    super(env.getProperty("security.rememberme.key"), userDetailsService);
+    super(env.getProperty("appconf.rememberme.key"), userDetailsService);
 
     setAlwaysRemember(true);
 
