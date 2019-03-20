@@ -52,9 +52,11 @@ import org.activiti.editor.language.json.converter.util.CollectionUtils;
 import org.activiti.editor.language.json.converter.util.JsonConverterUtil;
 import org.activiti.engine.identity.User;
 import org.apache.commons.lang3.StringUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -101,7 +103,7 @@ public class ModelServiceImpl implements ModelService {
   
   @Override
   public Model getModel(String modelId) {
-    Model model = modelRepository.findOne(modelId);
+    Model model = modelRepository.getOne(modelId);
 
     if (model == null) {
       NotFoundException modelNotFound = new NotFoundException("No model found with the given id: " + modelId);
@@ -121,7 +123,7 @@ public class ModelServiceImpl implements ModelService {
   public ModelHistory getModelHistory(String modelId, String modelHistoryId) {
     // Check if the user has read-rights on the process-model in order to fetch history
     Model model = getModel(modelId);
-    ModelHistory modelHistory = modelHistoryRepository.findOne(modelHistoryId);
+    ModelHistory modelHistory = modelHistoryRepository.getOne(modelHistoryId);
 
     // Check if history corresponds to the current model and is not deleted
     if (modelHistory == null || modelHistory.getRemovalDate() != null || !modelHistory.getModelId().equals(model.getId())) {
@@ -244,7 +246,7 @@ public class ModelServiceImpl implements ModelService {
   public Model saveModel(String modelId, String name, String key, String description, String editorJson, 
       boolean newVersion, String newVersionComment, User updatedBy) {
 
-    Model modelObject = modelRepository.findOne(modelId);
+    Model modelObject = modelRepository.getOne(modelId);
     return internalSave(name, key, description, editorJson, newVersion, newVersionComment, null, updatedBy, modelObject);
   }
 
@@ -290,7 +292,7 @@ public class ModelServiceImpl implements ModelService {
   @Transactional
   public void deleteModel(String modelId, boolean cascadeHistory, boolean deleteRuntimeApp) {
 
-    Model model = modelRepository.findOne(modelId);
+    Model model = modelRepository.getOne(modelId);
     if (model == null) {
       throw new IllegalArgumentException("No model found with id: " + modelId);
     }
@@ -347,7 +349,7 @@ public class ModelServiceImpl implements ModelService {
   @Override
   @Transactional
   public ReviveModelResultRepresentation reviveProcessModelHistory(ModelHistory modelHistory, User user, String newVersionComment) {
-    Model latestModel = modelRepository.findOne(modelHistory.getModelId());
+    Model latestModel = modelRepository.getOne(modelHistory.getModelId());
     if (latestModel == null) {
       throw new IllegalArgumentException("No process model found with id: " + modelHistory.getModelId());
     }
@@ -377,7 +379,10 @@ public class ModelServiceImpl implements ModelService {
         try {
           AppDefinition appDefinition = objectMapper.readValue(latestModel.getModelEditorJson(), AppDefinition.class);
           for (AppModelDefinition appModelDefinition : appDefinition.getModels()) {
-            if (!modelRepository.exists(appModelDefinition.getId())) {
+            Model model = new Model();
+            model.setId(appModelDefinition.getId());
+            Example<Model> example=Example.of(model);
+            if (!modelRepository.exists(example)) {
               result.getUnresolvedModels().add(new UnresolveModelRepresentation(appModelDefinition.getId(), 
                   appModelDefinition.getName(), appModelDefinition.getLastUpdatedBy()));
             }

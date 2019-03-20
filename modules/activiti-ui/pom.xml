@@ -4,7 +4,7 @@
 
   <name>Activiti UI App Root</name>
   <artifactId>activiti-ui-root</artifactId>
-	<version>6.0.0-boot2</version>
+	<version>6.0.0-boot2v</version>
   <packaging>pom</packaging>
 
   <parent>
@@ -21,10 +21,11 @@
 
 		<!-- Libraries versions -->
 		<activiti.version>6.0.0</activiti.version>
-	    <spring.version>4.1.6.RELEASE </spring.version>
-		<spring.security.version>4.0.1.RELEASE</spring.security.version>
-		<hibernate.version>4.2.16.Final</hibernate.version>
-		<jackson.version>2.3.3</jackson.version>
+	    <spring.boot.version>2.0.0.RELEASE </spring.boot.version>
+	    <spring.version>5.0.4.RELEASE </spring.version>
+		<spring.security.version>5.0.3.RELEASE</spring.security.version>
+		<hibernate.version>5.2.14.Final</hibernate.version>
+		<jackson.version>2.9.4</jackson.version>
 		<codahale.metrics.version>3.0.2</codahale.metrics.version>
 		<hazelcastcache.version>3.1.5</hazelcastcache.version>
 		<batik.version>1.7</batik.version>
@@ -209,7 +210,7 @@
 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
-			<version>3.1.0</version>
+			<version>3.6.1</version>
 		</dependency>
 		<dependency>
             <groupId>com.mchange</groupId>
@@ -293,7 +294,7 @@
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
-			<version>1.1.0.Final</version>
+			<version>2.0.1.Final</version>
 		</dependency>
 
 		<!-- JODA TIME -->
@@ -310,7 +311,7 @@
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.core</artifactId>
-			<version>3.1.0.CR10</version>
+			<version>6.0.1.GA</version>
 		</dependency>
 
 		<!-- SPRING -->
@@ -374,7 +375,7 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
-			<version>1.7.1.RELEASE</version>
+			<version>2.0.5.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -406,7 +407,7 @@
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
-            <version>2.3.20</version>
+            <version>2.3.28</version>
         </dependency>
         <dependency>
         	<groupId>javax.mail</groupId>
