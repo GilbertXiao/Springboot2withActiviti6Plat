@@ -29,6 +29,8 @@ import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.impl.asyncexecutor.AsyncExecutor;
+import org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor;
 import org.activiti.engine.runtime.Clock;
 import org.activiti.form.api.FormRepositoryService;
 import org.activiti.form.engine.FormEngineConfiguration;
@@ -245,9 +247,12 @@ public abstract class AbstractProcessEngineAutoConfiguration
     return processEngine.getFormEngineFormService();
   }
 
+
+
   @Bean(name="clock")
+  @DependsOn("processEngine")
   @ConditionalOnMissingBean
-  public Clock clock(SpringProcessEngineConfiguration configuration) {
-    return configuration.getClock();
+  public Clock getClock(SpringProcessEngineConfiguration conf) {
+    return conf.getClock();
   }
 }
