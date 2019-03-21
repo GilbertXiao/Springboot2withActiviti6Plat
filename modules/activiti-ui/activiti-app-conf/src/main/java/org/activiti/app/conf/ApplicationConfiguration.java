@@ -12,8 +12,11 @@
  */
 package org.activiti.app.conf;
 
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @PropertySources({
@@ -29,6 +32,9 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
         "org.activiti.app.service",
         "org.activiti.app.security",
         "org.activiti.app.model.component"})
+@EnableJpaRepositories({ "org.activiti.app.repository" })
+@EntityScan({"org.activiti.app.domain"})
+@EnableTransactionManagement
 public class ApplicationConfiguration {
 	
 	/**

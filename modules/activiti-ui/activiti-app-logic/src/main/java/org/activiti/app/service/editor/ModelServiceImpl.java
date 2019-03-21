@@ -541,7 +541,7 @@ public class ModelServiceImpl implements ModelService {
     
     // if no ids referenced now, just delete them all
     if (idsReferencedInJson == null || idsReferencedInJson.size() == 0) {
-      modelRelationRepository.delete(persistedModelRelations);
+      modelRelationRepository.deleteAll(persistedModelRelations);
       return;
     }
 
@@ -560,9 +560,11 @@ public class ModelServiceImpl implements ModelService {
       
       // if model is referenced, but it is not yet persisted = create it
       if (!alreadyPersistedModelIds.contains(idReferencedInJson)) {
-
+        Model model = new Model();
+        model.setId(idReferencedInJson);
+        Example<Model> example=Example.of(model);
         // Check if model actually still exists. Don't create the relationship if it doesn't exist. The client UI will have cope with this too.
-        if (modelRepository.exists(idReferencedInJson)) {
+        if (modelRepository.exists(example)) {
           modelRelationRepository.save(new ModelRelation(bpmnProcessModel.getId(), idReferencedInJson, relationshipType));
         }
       }

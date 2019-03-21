@@ -3,6 +3,16 @@ liquibase:
 spring:
   freemarker:
     check-template-location: false
+  jpa:
+    properties:
+      hibernate:
+       cache:
+        use_second_level_cache: false
+
+
 server:
   port: 9999
   context-path: "/activiti-app"
+
+  #  jpaProperties.put("hibernate.cache.use_second_level_cache", false);
+  #  jpaProperties.put("hibernate.generate_statistics", env.getProperty("hibernate.generate_statistics", Boolean.class, false));
