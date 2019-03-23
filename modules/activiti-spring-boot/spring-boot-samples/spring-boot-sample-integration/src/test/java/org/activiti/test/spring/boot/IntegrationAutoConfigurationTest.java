@@ -30,6 +30,7 @@ import org.springframework.integration.dsl.support.GenericHandler;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.client.RestTemplate;
 
+
 /**
  * Test the Spring Integration inbound inboundGateway support.
  *
