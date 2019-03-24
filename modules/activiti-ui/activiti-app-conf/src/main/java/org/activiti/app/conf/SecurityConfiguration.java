@@ -160,7 +160,10 @@ public class SecurityConfiguration {
 	                .antMatchers("/app/rest/idm/email-actions/*").permitAll()
 	                .antMatchers("/app/rest/idm/signups").permitAll()
 	                .antMatchers("/app/rest/idm/passwords").permitAll()
-	                .antMatchers("/app/**").authenticated();
+	                .antMatchers("/app/**").authenticated()
+					.antMatchers("/druid/**").authenticated()
+	        		.antMatchers("/actuator/**").authenticated()
+					.antMatchers("/manage/**").authenticated();
 
 	        // Custom login form configurer to allow for non-standard HTTP-methods (eg. LOCK)
 	        CustomFormLoginConfig<HttpSecurity> loginConfig = new CustomFormLoginConfig<HttpSecurity>();
