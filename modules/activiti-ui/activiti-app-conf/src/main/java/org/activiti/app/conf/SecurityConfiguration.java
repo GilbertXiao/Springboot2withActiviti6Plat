@@ -13,6 +13,7 @@
 package org.activiti.app.conf;
 
 import javax.inject.Inject;
+import javax.xml.ws.Endpoint;
 
 import org.activiti.app.security.AjaxAuthenticationFailureHandler;
 import org.activiti.app.security.AjaxAuthenticationSuccessHandler;
@@ -24,6 +25,7 @@ import org.activiti.app.web.CustomFormLoginConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.security.reactive.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
@@ -161,8 +163,8 @@ public class SecurityConfiguration {
 	                .antMatchers("/app/rest/idm/signups").permitAll()
 	                .antMatchers("/app/rest/idm/passwords").permitAll()
 	                .antMatchers("/app/**").authenticated()
-					.antMatchers("/druid/**").authenticated()
 	        		.antMatchers("/actuator/**").authenticated()
+					.antMatchers("/druid/**").authenticated()
 					.antMatchers("/manage/**").authenticated();
 
 	        // Custom login form configurer to allow for non-standard HTTP-methods (eg. LOCK)
